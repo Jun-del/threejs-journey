@@ -18,7 +18,7 @@ export default function Experience() {
   const groupRef = useRef();
 
   useFrame((state, delta) => {
-    // cubeRef.current.rotation.x += delta;
+    cubeRef.current.rotation.y += delta;
     // groupRef.current.rotation.y += delta;
   });
 
@@ -26,12 +26,19 @@ export default function Experience() {
     <>
       <orbitControls args={[camera, gl.domElement]} />
 
+      <directionalLight position={[1, 2, 3]} />
+      <ambientLight intensity={0.25} />
+
       <group ref={groupRef}>
         <mesh position-x={-2}>
           {/* arguements: radius, width, height */}
           {/* <sphereGeometry args={[1.5, 32, 32]} /> */}
           <sphereGeometry />
-          <meshBasicMaterial color="orange" wireframe={false} />
+          <meshStandardMaterial
+            color="orange"
+            wireframe={false}
+            intensity={1.5}
+          />
         </mesh>
 
         <mesh
@@ -41,13 +48,13 @@ export default function Experience() {
           scale={1.5}
         >
           <boxGeometry scale={1.5} />
-          <meshBasicMaterial color="mediumpurple" wireframe={false} />
+          <meshStandardMaterial color="mediumpurple" wireframe={false} />
         </mesh>
       </group>
 
       <mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
         <planeGeometry />
-        <meshBasicMaterial color="greenyellow" />
+        <meshStandardMaterial color="greenyellow" />
       </mesh>
     </>
   );
