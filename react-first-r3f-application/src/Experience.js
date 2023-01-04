@@ -1,6 +1,9 @@
 // App.js
-import { useFrame } from "@react-three/fiber";
+import { useThree, extend, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
+extend({ OrbitControls }); // extend adds OrbitControls to the list of available controls in react-three-fiber
 
 /*
 useFrame is a hook that runs on every frame of the canvas. It receives a callback function that will be called on every frame. 
@@ -10,6 +13,7 @@ like moving objects around or updating the camera.
 // useRef is a hook that returns a mutable ref object whose .current property is initialized to the passed argument (initialValue).
 
 export default function Experience() {
+  const { camera, gl } = useThree(); // useThree returns the state of the canvas
   const cubeRef = useRef();
   const groupRef = useRef();
 
@@ -20,6 +24,8 @@ export default function Experience() {
 
   return (
     <>
+      <orbitControls args={[camera, gl.domElement]} />
+
       <group ref={groupRef}>
         <mesh position-x={-2}>
           {/* arguements: radius, width, height */}
